@@ -1,0 +1,53 @@
+In their review of design study methodology, Sedlmair et al.\ emphasize the importance of deploying a designed solution ``in the wild'' to test if new software helps ``real users'' solve ``real problems'' with ``real data'' \cite{Sedlmair}. 
+Thus, we deployed \ours~over the web in a field study for two historians, who used the tool to answer questions from their own research. 
+Unlike in the expert interview study, during the field study, historians investigated questions over multiple meetings, and tried to reach substantive rather than preliminary conclusions.
+We believe that this evaluation offers more realistic but also less uniform feedback than the one-hour expert interviews described in Section \ref{s:usabilitystudy}.
+
+%\input{tables/field_study_historians} % moved to appendix to save space
+
+\subsection{Procedure}
+
+We recruited two historians, $\rhone$ and $\rhtwo$ through convenience sampling \cite{given_sage_2008}. 
+The Appendix includes details on their backgrounds. $\rhone$ and $\rhtwo$ did not participate in the initial design or development of \ours, to avoid what Sedlmair et al.\ \cite{Sedlmair} describe as a potential source of bias.
+During the field study, one member of our research team conducted three one-on-one meetings with each historian over Zoom video chat. 
+The first meeting was 30 minutes long and the subsequent meetings were 60 to 70 minutes long, with 1 to 3 weeks between each meeting.
+Each meeting in the three meeting sequence had a distinct focus. 
+During the first meeting, the researcher presented a tutorial of the software, described the field study process, and invited the historian to describe a question related to their research. 
+After the first meeting, a member of our research team gathered the data needed to answer the historian's research question and loaded it into \ours~(the Appendix describes this data gathering). 
+During the second meeting, each historian learned to use the \ours~software and performed a preliminary exploration of the data. 
+Then, during the final meeting, each historian investigated some specific query by analyzing the comprehensive set of all mentions using the Document Feed and Document Viewer. 
+During each meeting, the researcher observed each historian and invited the historian to think aloud \cite{thinkaloud} as they used the system. 
+The researcher also asked the historian to describe their findings and explain how \ours~helped or did not help answer their research question.
+
+\subsection{\ours~helps experts investigate by {skimming}, an advantage over baselines}
+
+During the field study, $\rhone$ and $\rhtwo$ each used \ours~to reach substantive historical conclusions, offering additional evidence for our hypothesis (Section \ref{s:system}) that \ours~can help experts answer research questions from news archives.
+
+${\rhone}$ used \ours~to verify a well-known claim from Herman and Chomsky, who argue that for-profit news organizations in the United States shape public opinion towards the interests of political and economic elites \cite{MC}.
+To offer evidence for this theory, in their work, Herman and Chomsky assert that \textit{The New York Times} wrote five articles in February and March of 1984 describing the Salvadoran army as a protector of El Salvador's election. To verify this result, $\rhone$ searched a \textit{New York Times} corpus (see Appendix) for the query ``{election}'' and then used the filter-by-date feature to select articles from February and March of 1984. $\rhone$ then used the filter-by-subquery feature to identify those query results which contained the subquery ``{army}.'' 
+$\rhone$ then systematically reviewed all 32 matching documents, through what  $\rhone$  described as \textit{``skimming highlighted parts''} in the Document Viewer. By using \ours~in this manner, $\rhone$ said that they were \textit{``able to find what might be the five articles''} Herman and Chomsky used to partially support their conclusions. $\rhone$ explained, \textit{``The tool is great for exactly this.''}
+
+$\rhone$ found \ours's in-text highlighting helpful for their research task, drawing a comparison with a baseline \Baselongname~system (Section \ref{s:baseline}).
+\textit{``I like how you have the bold highlighted and colored words in the text itself,''} they said.  \textit{``That is the advantage that this interface has over the New York Times website.''}
+$\rhone$ also explained how such highlighting reduced reading burden ( compared to a \Baselongname). 
+\textit{``What I need to know is the army described as a protector of the election [in an article]},'' he said.
+\textit{``I don't need to read every word of the article to find that out. I can look at the paragraphs where they are describing the army and I see what they are saying in those paragraphs. That is pretty useful.''}
+
+${\rhtwo}$ chose to use \ours~to study how the United States media represented female astronauts Svetlana Savitskaya and Sally Ride in the early 1980s.
+(${\rhtwo}$ needed to answer this question to research a planned book.) 
+To investigate, $\rhtwo$ used \ours's Document Feed and Document Viewer to review portrayal of Sally Ride in \textit{The New York Times}.
+$\rhtwo$ queried for the word {``Ride''} and then scrolled through the Document Feed to skim over mentions of Ride in the 63 matching documents, sometimes also clicking to open individual news stories in the Document Viewer. 
+\textit{``I have some hypotheses that I was able to develop very quickly through the experience of using this [system]},'' $\rhtwo$ reported. 
+\textit{``One is that Ride was presented to the American public [in The New York Times] ... first as a woman and second as a scientist.''}
+$\rhtwo$ asked us to continue to provide access after the study, so she could {continue researching her book using the tool}.
+ 
+\ours's Document Feed was particularly helpful for $\rhtwo$, who found that query-focused summarization offered an advantage over a baseline \Baselongname~system.
+Ride was a PhD astrophysicist turned astronaut, and $\rhtwo$ wanted to understand how the media portrayed her scientific credentials.
+The Document Feed helped $\rhtwo$ quickly review this information. 
+\textit{``[Here] she's called a flight engineer},'' $\rhtwo$ said, pointing to the Document Feed. \textit{``I can see this already [without opening the document].''}  
+$\rhtwo$ then scrolled through the Document Feed to find shortened sentences where Sally Ride was described with her academic title (Dr. Ride), and sentences where Ride was described (or not described) as a physicist. $\rhtwo$ explained that she could identify this information \textit{``just doing the quick scan [in the Document Feed].''} 
+She went on to explain how she would normally research this question with \textit{The New York Times} archive (by opening and reading individual news stories using a web browser). 
+\textit{``The question is},'' she said, {\textit{``what can I do here [with \ours] that I can't do there [i.e.\ on \textit{The New York Times website]?''}}}
+$\rhtwo$ continued, \textit{``It's exploring the left hand Document Feed here. This is awesome ... I am liking these short contextual pieces [i.e., shortened sentences].''}
+We illustrate this comparison in Figure \ref{f:field_study_loop}; 
+by using \ours, $\rhtwo$ was able to easily gather and analyze mentions of Ride across the corpus. 

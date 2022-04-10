@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+    <!-- date pickers -->
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <style type="text/css">
+      .headline:hover{
+        text-decoration:underline;
+      }
+    </style>
+
+  </head>
+
+
+  <body class="text-center">
+
+
+      <div style="border-bottom: 1px solid grey">
+        <div>
+          &nbsp;
+        </div>
+
+        <div class="container" style="text-align:left">
+            <div class="row">
+
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                      <input style="background-color:white" id="query" type="text" class="form-control" value="{{q}}" aria-describedby="inputGroup-sizing-default">
+                      <div  onclick="myFunction()" style="cursor:pointer; width:65px; background-color:white; border:1px solid grey; padding-top:5px; border-radius:3px" >
+                          &nbsp;Search
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                  
+                </div>
+
+                <div class="col-6">
+
+                    <div class="btn-group" style="font-size:medium;">
+
+
+                      <div class="btn-group" role="group">
+                        <button style="background-color:white; font-size: medium" class="btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          New York Times (1987-2007)
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">New York Times (1987-2007)</a>
+                          <a class="dropdown-item" href="#">Guardian (1990-2000)</a>
+                          <a class="dropdown-item" href="#">Toronto Star (1993-2010)</a>
+                        </div>
+                      </div>
+
+                      <div class="btn-group" role="group">
+                        <button style="background-color:white; font-size:medium" class="btn-sm  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Editorial
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Editorial</a>
+                          <a class="dropdown-item" href="#">News</a>
+                        </div>
+                      </div>
+
+                      <div class="btn-group" role="group">
+                        <button style="background-color:white; font-size: medium"  class="btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{subcorpus}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" id="action-technology" href="#">technology</a>
+                          <a class="dropdown-item" id="action-drugs" href="#">drugs</a>
+                          <a class="dropdown-item" id="action-education" href="#">education</a>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container" style="height:30px;width: 100%;border:1px solid white">
+           <div class="row" style="border:1px solid white">
+              <div class="col-7" style="border: 1px solid white">
+                  <div style="float: left; font-size:medium;">
+                      {%if q | length > 0 %} Searching {% else %} Loaded {% endif %}
+                      {{totalsize}} total editorials from the New York Times mentioning {{subcorpus}}
+                  </div>
+              </div>
+              <div class="col-5" style="border: 1px solid white; text-align: right">
+
+                  {% if show_results %}
+                    {% if pages > 0 %}
+                      <div style="border: 0px solid white; font-size: medium"> Found {{num_results}} results for {{q}}, showing page {{page}} of {{pages}}</div>
+                    {% else %}
+                      <div style="border: 0px solid white; font-size: medium"> Found {{num_results}} results, showing page {{page}}</div>
+                    {% endif %}
+                  {% endif %}
+
+              </div>
+           </div>
+        </div>
+
+        <div class="container" style="height:40px;width: 100%;border:1px solid white">
+          <div class="row" style="width: 100%; border:1px solid white">
+             <div class="col-sm" style="font-size:medium;"> Start Date: <input style="width:105px" type="text" id="datepicker1"></div>
+             <div class="col-sm" style="font-size:medium"> End Date: <input style="width:105px" type="text" id="datepicker2"></div>
+             <div class="col-sm"> 
+                  <div class="btn-group">
+                      <div class="btn-group" role="group">
+                        <label style="margin-top:2px;font-size:medium;" class="form-check-label" for="relevance2">
+                            Sort by:&nbsp;
+                        </label>
+                        <button style="background-color:white; font-size:medium" class="dropdown-toggle" type="button" id="dropdownMenuButton_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{sort}}
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="relevance2">
+                          <a id="byrelevance" style="font-size:medium" class="dropdown-item" href="#">relevance</a>
+                          <a id="bydate"  style="font-size:medium" class="dropdown-item" href="#">date</a>
+                        </div> 
+                      </div>
+                  </div>    
+
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container" style="text-align:left">
+          {% for item in results %}
+            <row class="container" style="text-align:left">
+                <h5> <a href="http://{{host}}:5010/get_doc_ir?subcorpus={{subcorpus}}&docno={{item['docno']}}"><span class="headline" style="color:blue">{{item['title']}}</a></span>, <span style="color:grey">{{item['pubdate']}}</span> </h5>
+
+                <div>
+                  {{item["highlight"]|safe}}
+                </div>
+            </row>
+
+          {% endfor %}
+      </div>
+
+      <div class="container" style="height:30px;width: 100%">
+        <div class="row" style="border:1px solid white">
+              <div class="col-sm">
+                    <div style="margin:auto"> 
+                              {% if show_prev %}
+                                  <a id="prevpage" style="color:blue;font-size:20px" href="">Prev page{% if show_prev and show_next%}|{% endif %}</a>
+                              {% endif %}
+
+
+                              {% if show_next %}
+                                  <a id="nextpage" style="color:blue;font-size:20px" href="">Next page</a>
+                              {% endif %}
+                    </div>
+                </div>
+
+          </div>
+      </div>
+
+      <script type="text/javascript">
+        
+        function url2keys() {
+          var opts = window.location.href.split("?")[1].split("&")
+          var out = {}
+          for (var i = 0; i < opts.length; i++) {
+
+             var field = opts[i].split("=")[0]
+             var value = opts[i].split("=")[1]
+             out[field] = value
+          }
+          return out
+        }
+
+        function keys2url(urldict) {
+          var base = window.location.href.split("?")[0] + "?"
+          var keys = Object.keys(urldict)
+          for (var i = 0; i < keys.length; i++) {
+              if(i > 0){
+                base = base + "&" + keys[i] + "=" + urldict[keys[i]]
+              }else{
+                base = base + keys[i] + "=" + urldict[keys[i]]
+              }
+              
+          }
+          return base
+        }
+
+        function copyAndReplace(urldict, k, v){
+           var out = JSON.parse(JSON.stringify(urldict))
+           out[k] = v
+           return out
+        }
+
+        function make_corpus_dict(subcorpus) {
+            urldict = {}
+            urldict["sort"] = "relevance"
+            urldict['subcorpus'] = subcorpus
+            urldict["page"] = 1
+            urldict["start_date"] = "19870101"
+            urldict["end_date"] = "20071231"
+            urldict["q"] = ""
+            return urldict
+        }
+
+        function requery(dateText){
+
+            var s = moment($( "#datepicker1" ).datepicker("getDate")).format("YYYYMMDD")
+            var e = moment($( "#datepicker2" ).datepicker("getDate")).format("YYYYMMDD")
+            var urldict = url2keys()
+            urldict['start_date'] = s
+            urldict['end_date'] = e
+            urldict['page'] = 1
+            var url = keys2url(urldict)
+            window.location.href = url
+
+        }
+
+        $( function() {
+
+          //set date pickers
+          $( "#datepicker1" ).datepicker({onSelect: requery})
+          $( "#datepicker2" ).datepicker({onSelect: requery})
+          $( "#datepicker1" ).datepicker("setDate", "1/1/1987");
+          $( "#datepicker2" ).datepicker("setDate", "12/31/2007");
+
+          console.log(window.location.href)
+
+          var opts = window.location.href.split("&")
+
+          var urldict = url2keys()
+
+          let s = moment(urldict["start_date"]).format("MM/DD/YYYY")
+          let e = moment(urldict["end_date"]).format("MM/DD/YYYY")
+
+          $( "#datepicker1" ).datepicker("setDate", s)
+          $( "#datepicker2" ).datepicker("setDate", e)
+
+          let bydate = keys2url(copyAndReplace(urldict, "sort", "bydate"))
+
+          let byrelevance = keys2url(copyAndReplace(urldict, "sort", "byrelevance"))
+
+          let nextpage = keys2url(copyAndReplace(urldict, "page", "{{page + 1}}"))
+
+          let prevpage = keys2url(copyAndReplace(urldict, "page", "{{page - 1}}"))
+
+          console.log(prevpage)
+
+
+          let technology = make_corpus_dict("technology")
+          technology = keys2url(technology)
+
+          let drugs = make_corpus_dict("drugs")
+          drugs = keys2url(drugs)
+
+          let education = make_corpus_dict("education")
+          education = keys2url(education)
+
+          console.log("ok")
+
+          corpora_urls = {"drugs": drugs, "technology": technology, "education": education}
+
+          $("#byrelevance").attr("href", byrelevance);
+
+          $("#bydate").attr("href", bydate);
+
+          $("#nextpage").attr("href", nextpage);
+
+          $("#prevpage").attr("href", prevpage);
+
+          var corpora = ["technology", 'drugs', 'education']
+
+          console.log(corpora_urls)
+          for (var i = 0; i < corpora.length; i++) {
+            $('#action-' + corpora[i]).attr("href", corpora_urls[corpora[i]]);
+            console.log(corpora_urls[corpora[i]])
+          }
+
+        } );
+        
+        function myFunction() {
+            
+            var urldict = url2keys()
+            urldict['page'] = 1
+            var query_url = keys2url(copyAndReplace(urldict, "q", $("#query").val()))
+            location.href = query_url;
+
+        }
+
+        document.addEventListener("keypress", function(event) {
+                  if (event.keyCode == 13) {
+                    myFunction()
+                  }
+                });
+
+      </script>
+
+  </body>
+</html>

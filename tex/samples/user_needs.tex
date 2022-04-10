@@ -1,0 +1,105 @@
+% !TEX root = ../main.tex
+
+\subsection{Formalizing historians' current practice of mention gathering and analysis}\label{s:needs_formal_problem}
+In Section \ref{s:intro}, we document and informally describe historians' current practice of mention gathering and mention analysis.
+We now define this work more formally. 
+During mention gathering, a historian investigates a unigram query \Q~in a newspaper archive.
+\Q~is a word type and each mention of the query, \specificmention, is a word token.
+For instance, a historian might investigate \Q=``Falluja'' by gathering specific mentions of the word ``Falluja'' in individual documents, published on particular dates.
+Using $d$ to refer to the text of a specific document and $t$ to refer to its publication date, we can formally define mention gathering as the task of finding all \mentions~in an archive \archive=$\{(d_1, t_2), (d_2, t_2) ... (d_N, t_N)\}$, which is an unordered set of $N$ timestamped documents.
+
+The task of mention analysis consists of manually reviewing one or more query mentions in context.
+We use the notation \mentionincontext~to refer to a specific passage showing a particular query mention in context, where \mentionincontext~is a token span. 
+For instance, if ``Falluja'' occurs in document $d$, then \mentionincontext~might be a paragraph from $d$ that contains the string ``Falluja.'' We denote this using $\mathcal{C}_{\text{paragraph}}(i)$.
+Note that different systems may define \mentionincontext~in different ways.
+For example, \Baselongname~systems return whole documents.
+Thus a \Baselongname~system defines \mentionincontext~as the whole document $d$ containing \specificmention.
+We denote this using $\mathcal{C}_{\text{full doc.}}(i)$.
+
+Having now formally defined historians' current practice of mention gathering and mention analysis, and explained the limitations of baseline tools for these tasks (Section \ref{s:intro}), we now describe an investigation into the needs of historians (Section \ref{s:needs_protocol}) which informs our design requirements for a text analytics system (Section \ref{s:needs_results}). 
+
+
+\subsection{Observing and analyzing needs from heterogeneous data}\label{s:needs_protocol}
+
+We identified user needs by collecting and analyzing two different sources of data, described below.
+
+\subsubsection{Observing needs from existing literature}
+First, we studied historians' needs by reviewing a large literature from history, library science, and information science devoted to the systematic study of the digital and non-digital information-seeking behavior of historians.
+To identify this literature, we followed citations starting from Allen and Sieczkiewicz's paper ``How Historians use Historical Newspapers'' \cite{allen}, which we first found via a search on Google Scholar. In total, we reviewed and took notes on six prior studies describing surveys and interviews with 1002 historians (shown in a table in the Appendix).
+We consider our synthesis of this prior literature to be part of the contribution of our work, as we translate these prior descriptive findings (focused on how historians find information) into actionable design requirements for an interface.
+The studies we review are largely unknown in computer science disciplines like NLP, IR, VIS, and HCI.
+
+\subsubsection{Observing needs from interviews and feedback on prototypes} We additionally supplemented, contextualized, and validated existing studies by conducting five of our own one-on-one needfinding interviews with five interviewees (I1 to I5) on Zoom video chat over a period of three months.\footnote{Our needfinding interviews, expert interviews, and field study (Sections \ref{s:needs_protocol}, \ref{s:usabilitystudy}, and \ref{s:fieldstudy} respectively) were approved as exempt from review by our institution's human subjects IRB office.
+All participants received a \$50 Amazon gift card for their time.} 
+The Appendix describes the backgrounds of interviewees in detail.
+All but one interview was 60 minutes long. (We met with \ifour~for 30 minutes, due to limited availability.) Interviews proceeded in two phases. During \textit{Phase A}, in the initial exploratory stage of our work, one researcher from our group interviewed \itwo, \ifour, and \ifive, who we recruited through convenience sampling \cite{given_sage_2008}.
+The interviewer asked open-ended, exploratory questions about needs and practices, and solicited feedback on early prototypes. 
+The researcher also took detailed notes.
+Later, when we better understood how historians find information in archives, we began \textit{Phase B}.
+During this phase, the same researcher conducted two one-on-one, video-recorded, semi-structured interviews with \ione~and\ithree, who also provided feedback on later prototypes. 
+We recruited \ione~and\ithree~via email outreach.\footnote{
+We emailed five PhD students in history at a nearby university. 
+Each student expressed interest in media, archives or science in describing their work on their department's web page.
+We also emailed all members of the editorial board at a history journal.
+We do not list the name of the university or journal to ensure interviewees remain anonymous.
+} 
+The researcher again took detailed notes.
+We include the interview script in supplemental material. 
+In total, each of the five interviewees across \textit{Phase A} and \textit{Phase B} reviewed a different iterative prototype.
+In the interest of space, we only present feedback on what we consider to be the two most important prototypes, shown in the Appendix.
+
+\subsubsection{Analyzing observations of historians' needs}
+Following data collection, one researcher qualitatively analyzed and organized  notes and transcripts to articulate four overall needs, and translate these needs into four corresponding design requirements (described in Section \ref{s:needs_results}).
+In general, we found that feedback from needfinding interviews and feedback on early prototypes was very consistent with findings from prior work.
+Nevertheless, our own needfinding interviews helped to contextualize and translate prior descriptive findings on historians' information-seeking behaviors into actionable guidelines for system design.
+
+
+
+\subsection{Needfinding results and design requirements}\label{s:needs_results}
+
+Following data collection and data analysis, we defined four high-level design requirements (R1-R4), based on four needs.
+We describe each requirement below.
+
+\subsubsection{\textbf{R1: A system should show a navigable overview of change over time}}\label{s:exploration}
+Prior study of the information-seeking behavior of historians emphasizes the theoretical importance of \textit{``the dimension of time''} \cite{Case} in historical research, and also emphasizes historians' practical need to perform \textit{``searching and narrowing by date''} \cite{allen}. 
+In our needfinding interviews, historians and archivists also stressed the theoretical and practical importance of time-based investigation. \textit{``Time is always a historian's first move},''  \ithree~explained. \textit{``It's about change over time as the fundamental thing.''} \ifive~noted: \textit{``Historians are often trying to find articles within a specific date range and about a specific topic} ... \textit{research often starts with a keyword and a date range and a source or list of sources}.'' 
+Because historical research involves studying change across time, \itwo~explained how time series plots showing the frequency of query words by time period (see Figure \ref{f:time_series_plus_family}) are often useful for gaining a temporal overview of a corpus. \textit{``Bar charts [or line charts] by time are really helpful},'' \itwo~explained, \textit{``because news has these peaks where a topic becomes important and then dies down.''} Such charts \textit{``help people trace an idea or series of ideas or terminology over time}.''
+Observing the centrality of temporal analysis in historical research, we assert a design requirement (R1): a system designed for historical mention gathering and analysis should show some kind of navigable, visual overview of query mentions \mentions~across the time span of a corpus.
+Showing such a visual ``overview first'' \cite{HeerShneiderman, The_Eyes_Have_It} is a known best practice in visual analytics.
+
+\subsubsection{\textbf{\rcomprehensive: A system should help people comprehensively review all query mentions in a corpus}}\label{s:needs_comprehensive}
+
+Prior work often emphasizes the importance of gathering comprehensive evidence during historical research.  \textit{``Comprehensiveness is clearly the highest priority in searching a database,''} one study concludes \cite{DaltonCharnigo}, explaining that 70\% of 278 survey respondents would prefer to spend time filtering out irrelevant material than run the risk that relevant material \textit{``might fall through the cracks''} in a limited search. Nevertheless, some historians in prior work acknowledge that truly comprehensive search is an impossible goal. \textit{``I never think I'm going to be able to read every record,''} one reports \cite{DuffJohnson}. \textit{``I'm always creating priority orders of what I think is going to be most useful.''}
+
+
+Our interviewees similarly emphasized the importance of comprehensiveness in gathering and evaluating historical evidence. \textit{``The most important thing for historical researchers is to be confident that they are being exhaustive,''} said~\ifour. \textit{``I want to know I can be confident I have been able to access everything relevant. Did my search cast a wide enough net?''} \ifour~also praised an early prototype (see Appendix) for displaying a very large number of potentially relevant passages. \textit{``The biggest fear is Type II error,''} he explained. \textit{``In doing searches, am I missing something that is crucial but I don’t know because I never looked?''}
+Similarly, \ifive~explained that it is important to \textit{``be as completist as possible''} in historical research. 
+\textit{``The thing about historians....they want to be as comprehensive as possible with their topics}.'' Citing the importance of comprehensiveness, \ifive~expressed deep skepticism (see Appendix) about an early prototype which omitted some information to form a summary.
+However, like some interviewees in prior work, \itwo~pointed out that truly comprehensive investigation may not be possible. \textit{``Ultimately,''} she noted, \textit{``there is a limit in terms of time and money for any given project.''}
+We translate the need for comprehensive archival search into a second design requirement {(\rcomprehensive): a system for mention gathering and analysis should help people comprehensively review all query mentions in a corpus.}
+Expressed more formally, a system should help historians easily navigate to and review every single \specificmention~in an archive.
+
+\subsubsection{\textbf{\rcontext: A system should present as much context as possible for any given record in an archive}}\label{s:needs_context}
+Prior work emphasizes the importance of context in historical research. \textit{``Building context is the {\normalfont sine qua non [indispensable condition]} of historical research,''} Duff and Johnson write \cite{DuffJohnson}. \textit{``Without it historians are unable to understand or interpret the events or activities they are examining.''} 
+In a separate study, another historian explains, \textit{``You can't have the specific facts without the context ... Where an article is in the paper, and what surrounds it, matters.''} 
+
+During our own needfinding interviews, historians and archivists also repeatedly emphasized the importance of contextual information in archive news search.
+The job of a historian is to \textit{``put facts in context,''}  \ifive~said. A historian will need to \textit{``contextualize''} facts from a periodical by examining its publishers and audience. Similarly, \ifour~noted that \textit{``as an archivist I do research to give context to collections.''}
+Finally, \itwo~stressed the importance of contextualizing evidence in archive search software. \textit{``Who does the New York Times have writing this?''} \itwo~asked, while examining an early \ours~prototype. \textit{``Where does each sentence occur in the document? What section of the newspaper? You need to show more context.''}
+
+Observing the importance of context in historical research, we assert a design requirement (\rcontext): a system for mention gathering and analysis should show each query mention amid as much surrounding context as possible.
+Formally, \rcontext~implies that \mentionincontext~should be as large as possible (in token length) for each \specificmention.
+However, \rcontext~must be balanced against other requirements, which impose competing demands. In particular, because screen space and human attention are limited resources, if \mentionincontext~is large (e.g., a full document) this will make it harder for a historian to comprehensively review all mentions in a corpus. Balancing a need for context and comprehensiveness is a challenge in designing for historians.
+
+
+\subsubsection{\textbf{R4: A system should be as transparent, trustworthy and neutral as possible}}\label{s:needs_trust}
+
+Prior studies of the information-seeking behavior of historians underscore the need for trustworthy tools that transparently present digital archival materials in a neutral manner. 
+For instance, in one study \cite{DuffCraigCherry}, a historian reports that they prefer original sources because they can trust such sources to be \textit{``accurate, undistorted and complete.''} 
+Similarly, in another study \cite{Chassanoff}, another historian explains that direct \textit{``access to the original image of the primary source rather than to a transcribed version''} is important, \textit{``especially when there is no description of what rules they used to transcribe documents.''}  
+This historian reports that they do not trust and can not interpret electronic transcription, and thus must rely on direct observation of digitized images to draw conclusions.
+
+In our interviews, historians and archivists similarly described the importance of transparently presenting digitized archives in a neutral manner. \textit{``When I see something that is trying to decide or curate for me that is a worry. That is a red flag},'' \ifour~explained. Similarly, \itwo~added, \textit{``I think the system should be as transparent as possible. I need to distinguish between what some primary source is saying versus what the computer thinks a primary source is saying.''}  \ifive~also cited the importance of transparency and trust in expressing deep skepticism about an early prototype, shown in the Appendix.\footnote{Even as some interviewees stressed the importance of unbiased, transparent and trustworthy presentation of archive evidence, \ithree~reported that, in practice, historical researchers do trust ranked results from keyword document search systems. She explained that many historians might not realize that black-box document rankings from a~\Baselongname~tool will affect conclusions from archival research.}
+Because historians frequently expressed commitments to direct and neutral observation of archival evidence, we assert a design requirement {(R4): search software should show evidence in a maximally transparent and trustworthy manner.}
+One consequence of R4 is that systems for mention gathering and analysis should not attempt to create a curated summary of the most ``important'' \mentions~in an archive (see Section \ref{s:discussion_NLP}).
+

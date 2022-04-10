@@ -1,0 +1,116 @@
+\documentclass[acmsmall,screen,review,anonymous]{acmart}
+
+\newcount\Comments  % 0 suppresses notes to selves in text
+\Comments=1   % TODO: set to 0 for final version
+
+% for comments
+\usepackage{color}
+
+\definecolor{CCPurple}{rgb}{.405, .144, .450} % hex 672573
+\definecolor{darkgreen}{rgb}{.106, .471, .216}
+\definecolor{gold}{RGB}{240,205,17}
+
+\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+\newcommand{\abe}[1]{\kibitz{red}{[Abe: #1]}}
+\newcommand{\nm}[1]{\kibitz{blue}{[NM: #1]}}
+\newcommand{\bto}[1]{\kibitz{darkgreen}{[BTO: #1]}}
+\newcommand{\icw}{I1}
+\newcommand{\ief}{I2}
+\newcommand{\ilt}{I3}
+\newcommand{\iar}{I4}
+\newcommand{\ikf}{I5}
+\newcommand{\rafi}{H1}
+\newcommand{\roshanna}{H2}
+\newcommand{\ours}{\textsc{ClioQuery}}
+\newcommand{\R}{skimmable mentions}
+\newcommand{\burdensome}{mention gathering}
+\newcommand{\sshot}[1]{\includegraphics[height=4cm]{#1}}
+\newcommand{\Strategy}{Pattern}
+\newcommand{\pattern}{pattern}
+\newcommand{\Strategies}{Patterns}
+\newcommand{\patternsLong}{design patterns}
+\newcommand{\PatternsLong}{Design patterns}
+\newcommand{\designpatterns}{design patterns}
+\newcommand{\designpatternsshort}{strategies}
+\newcommand{\titleoffset}{-3cm}
+\newcommand{\captionname}[1]{\hspace*{.1cm} #1}
+\newcommand{\roverview}{R1}
+\newcommand{\rcomprehensive}{R2}
+\newcommand{\rcontext}{R3}
+\newcommand{\rnoconfound}{R4}
+\newcommand{\rmax}{R4}
+\newcommand{\appendixwidth}{width=7cm}
+\newcommand{\Baselongname}{keyword document search}
+\newcommand{\BaselongnameCap}{Keyword document search}
+\newcommand{\marginwidth}{.1} % min w/o word wrap
+\newcommand{\cellwidth}{.28}
+\newcommand{\includewidthFam}{.9}
+\newcommand{\lastletter}{I}
+\newcommand{\leftwidth}{1.9cm}
+\newcommand{\familypicwidth}{3.9cm}
+\newcommand{\familypicwidthPlus}{5.5cm}
+
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{subcaption}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage[normalem]{ulem} 
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{acmcopyright}
+\copyrightyear{2021}
+\acmYear{2021}
+\acmDOI{xxx}
+
+
+%%
+%% These commands are for a JOURNAL article.
+\acmJournal{TIIS}
+\acmVolume{xx}
+\acmNumber{xx}
+\acmArticle{ACM Article No}
+\acmMonth{1}
+
+
+\begin{document}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+
+\section*{Codebook for expert interview study}
+
+\subsection*{Historical sensemaking}
+The quote explains, articulates, or offers backstory about a hypothesis regarding specific historical events or processes. The user finds evidence for or against their historical hypothesis, or discovers new evidence that casts a prior historical hypothesis in a different light. The user explores and analyzes historical information based on knowledge of the domain.
+
+\subsection*{\ours~Features}
+The quote addresses some specific feature of the \ours~system including the Document Feed, Document Viewer, Time Series Plot, rug points, filtering system, history tracking system, color coding, in-text highlighting and text simplification. This theme also encompasses suggested features for future versions of \ours~(e.g. complex Boolean queries or wildcards).
+
+\subsection*{Comprehensiveness}
+This quote addresses the role of comprehensive search in the historical research process. Comprehensive search refers to gathering all available evidence and reviewing all evidence to reach conclusions. 
+
+
+\subsection*{Context in historical research}
+This quote addresses the role of context in the historical research process. Historians and archivists sometimes say that they need context to evaluate evidence. For instance, some historians may say they need to understand a quote from a news story in context. Context includes things like when a story was published, and where a story appeared in the paper.
+
+
+
+
+
+\subsection*{Bias and transparency}
+This quote addresses the role of bias and transparency in historical research. Some users sometimes stress the importance of directly and neutrally observing evidence in archives, without computers exerting any sway over their research process. 
+
+\subsection*{Current practices}
+This quote addresses the tools and methods that historians and archivists currently use to search archives. For instance, quotes describing reading historical books, visiting physical archives, using search engines, using microfilm, using microfiche, and using specific services like Google, the Internet Archive or ProQuest are all coded as current practices. 
+
+\end{document}

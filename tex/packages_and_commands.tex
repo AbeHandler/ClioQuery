@@ -1,0 +1,97 @@
+\newcount\Comments  % 0 suppresses notes to selves in text
+\Comments=1   % TODO: set to 0 for final version
+
+
+%% 
+\newcommand{\deltaCQengaged}{0.519} % the difference in means between CQ and IR. Comes from deltaCQengaged.txt
+\newcommand{\deltaCQall}{$0.399$}
+
+% computed in histogram_maker.R
+\newcommand{\cohensengaged}{0.495} % d_engaged.txt
+\newcommand{\cohensALL}{0.352}  % d_all.txt
+\newcommand{\nengaged}{62} 
+\newcommand{\nengagedIR}{32}
+\newcommand{\nengagedCQ}{30}
+\newcommand{\cqNperfectscore}{8}
+\newcommand{\irNperfectscore}{4}
+\newcommand{\pAll}{0.030} % p_all.txt
+\newcommand{\pAttentive}{0.029} % p_attentive.txt
+
+% these numbers are reported in the table reporting user study
+\newcommand{\totalNmin}{40.3} % this number is (121 workers * 20 min/worker)/(60 min/hr), rounded to .3
+\newcommand{\totalN}{121} % totalN.txt
+
+%%%
+
+
+% for comments
+\usepackage{color}
+
+\usepackage{tikz}
+\definecolor{CCPurple}{rgb}{.405, .144, .450} % hex 672573
+\definecolor{darkgreen}{rgb}{.106, .471, .216}
+\definecolor{gold}{RGB}{240,205,17}
+
+%% Notation 
+\newcommand{\Q}{$Q$}
+\newcommand{\mentions}{$\mathcal{M}(\Q)$} % from police fatalities 
+\newcommand{\queryresponsivedocs}{$\mathcal{D}_\Q$} % from police fatalities
+\newcommand{\specificmention}{$i \in \mathcal{M}(Q)$} % from police fatalities 
+\newcommand{\newsstory}{$d$} % from manning IR book table of notation 
+\newcommand{\timestamp}{$t$} % from manning IR book table of notation  https://nlp.stanford.edu/IR-book/pdf/irbookonlinereading.pdf
+\newcommand{\doctimestamppair}{$(d, t)$}
+\newcommand{\archive}{$\mathcal{A}$} % an archive, = [(d_0, t_0), (d_1, t_1) ... (d_N, t_N)]
+\newcommand{\mentionincontext}{$\mathcal{C}(i)$}
+\newcommand{\simplifiedsentence}{ $\mathcal{C}_{s^{\prime}}(i)$}
+
+
+
+\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+%\newcommand{\abe}[1]{\kibitz{red}{[Abe: #1]}}
+%\newcommand{\nm}[1]{\kibitz{blue}{[NM: #1]}}
+%\newcommand{\bto}[1]{\kibitz{darkgreen}{[BTO: #1]}}
+\newcommand{\ione}{I1}
+\newcommand{\itwo}{I2}
+\newcommand{\ithree}{I3}
+\newcommand{\ifour}{I4}
+\newcommand{\ifive}{I5}
+\newcommand{\rhone}{H1}
+\newcommand{\rhtwo}{H2}
+\newcommand{\ours}{\textsc{ClioQuery}}
+\newcommand{\R}{skimmable mentions}
+\newcommand{\burdensome}{mention gathering}
+\newcommand{\sshot}[1]{\includegraphics[height=4cm]{#1}}
+\newcommand{\Strategy}{Pattern}
+\newcommand{\pattern}{pattern}
+\newcommand{\Strategies}{Patterns}
+\newcommand{\patternsLong}{design patterns}
+\newcommand{\PatternsLong}{Design patterns}
+\newcommand{\designpatterns}{design patterns}
+\newcommand{\designpatternsshort}{strategies}
+\newcommand{\titleoffset}{-3cm}
+\newcommand{\captionname}[1]{\hspace*{.1cm} #1}
+\newcommand{\roverview}{R1}
+\newcommand{\rcomprehensive}{R2}
+\newcommand{\rcontext}{R3}
+\newcommand{\rnoconfound}{R4}
+\newcommand{\rmax}{R4}
+\newcommand{\appendixwidth}{width=7cm}
+\newcommand{\Baselongname}{keyword document search}
+\newcommand{\BaselongnameCap}{Keyword document search}
+\newcommand{\marginwidth}{.1} % min w/o word wrap
+\newcommand{\cellwidth}{.28}
+\newcommand{\includewidthFam}{.9}
+\newcommand{\lastletter}{I}
+\newcommand{\leftwidth}{1.9cm}
+\newcommand{\familypicwidth}{3.9cm}
+\newcommand{\familypicwidthPlus}{5.5cm}
+
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{subcaption}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage[normalem]{ulem} 
+
+\usepackage{cleveref} % needed to ref a footnote in Sys section
+% https://tex.stackexchange.com/questions/167380/how-to-refer-to-a-footnote

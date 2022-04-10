@@ -1,0 +1,43 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-64
+brotli-python=1.0.9=py38h79c402e_2
+ca-certificates=2021.10.8=h033912b_0
+certifi=2021.10.8=py38h50d1736_2
+click=7.1.2=pyh9f0ad1d_0
+colorama=0.4.4=pyh9f0ad1d_0
+flask=1.1.4=pyhd8ed1ab_0
+flask-caching=1.10.1=pyhd8ed1ab_0
+flask-compress=1.11=pyhd8ed1ab_0
+itsdangerous=1.1.0=py_0
+jinja2=2.11.2=py_0
+joblib=1.1.0=pyhd8ed1ab_0
+libblas=3.9.0=13_osx64_openblas
+libcblas=3.9.0=13_osx64_openblas
+libcxx=13.0.1=hc203e6f_0
+libedit=3.1.20191231=h1de35cc_1
+libffi=3.3=hb1e8313_2
+libgfortran=5.0.0=9_3_0_h6c81a4c_23
+libgfortran5=9.3.0=h6c81a4c_23
+liblapack=3.9.0=13_osx64_openblas
+libopenblas=0.3.18=openmp_h3351f45_0
+llvm-openmp=13.0.1=hcb1a161_1
+markupsafe=1.1.1=py38h1de35cc_1
+ncurses=6.2=h0a44026_1
+numpy=1.20.3=py38had91d27_1
+openssl=1.1.1n=h6c3fc93_0
+pip=20.2.4=py38_0
+python=3.8.5=h26836e1_1
+python_abi=3.8=2_cp38
+readline=8.0=h1de35cc_0
+scikit-learn=1.0.2=py38h37f3bb3_0
+scipy=1.8.0=py38hd329d04_1
+setuptools=50.3.0=py38h0dc7051_1
+sqlite=3.33.0=hffcf06c_0
+threadpoolctl=3.1.0=pyh8a188c0_0
+tk=8.6.10=hb0a8c7a_0
+tqdm=4.64.0=pyhd8ed1ab_0
+werkzeug=1.0.1=pyh9f0ad1d_0
+wheel=0.35.1=py_0
+xz=5.2.5=h1de35cc_0
+zlib=1.2.11=h1de35cc_3

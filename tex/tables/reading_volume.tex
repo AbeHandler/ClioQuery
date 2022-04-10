@@ -1,0 +1,26 @@
+{
+%%%Replication: $ python token_counter.py
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{@{}l r@{}}
+\toprule
+Context       & {Num.\ tokens} \\ \hline 
+$\mathcal{C}_{\text{full doc.}} $      & 222,544   \\ 
+$\mathcal{C}_{\text{full sent.}}$   & 49,382      \\
+$\mathcal{C}_{s^\prime}$  & 28,859    \\  \bottomrule
+\end{tabular}
+\caption[A quantitative view of how \ours~eases reading burden]{
+Total tokens presented to a historian, if each mention of the query ``Reagan'' and subquery ``Duarte'' is shown within the context of a full document ($\mathcal{C}_{\text{full doc.}}$), a full sentence  ($\mathcal{C}_{\text{full sent.}}$) or a shortened sentence ($\mathcal{C}_{s^\prime}$).
+By showing shortened sentences, \ours~removes 87.0\% of tokens from all documents containing a query mention, and 41.6\% of tokens from all sentences containing a query mention.
+In some cases, removing such tokens will exclude potentially relevant information from the summary; 
+in these circumstances, a person would have to find and review such information using the Document Viewer.
+Counts come from the example in Figure  \ref{f:system_cc}, using the Salvador corpus (Appendix) and assuming \ours~is shown on a 13-inch screen.
+}\label{t:tokens}
+\end{table}
+}
+
+
+
+
+%. But some sentence

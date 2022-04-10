@@ -1,0 +1,73 @@
+% !TEX root = ../main.tex
+
+
+\subsection{\ours~suggests new features and directions for interactive text analysis}\label{s:discussion_simplification}
+
+Much prior work in interactive text analysis focuses on helping people investigate bodies of documents by presenting textual units like topics \cite{tiara}, events \cite{eventriver}, or thematic hierarchies \cite{overview}.
+But motivated by the needs of historians and archivists, \ours~instead proposes and tests a new approach to interactive corpus investigation, organized around the analysis of query mentions in context (see Section \ref{s:related_comparison}).
+
+To help people investigate this ``unit of analysis'' \cite{chuangheer}, \ours~employs new text summarization techniques from the NLP literature to create a summary of a query term across a corpus.
+The system then presents summaries alongside more traditional features from the text analytics literature, such as linked views and in-text highlighting, to help people easily and transparently review summary text in underlying documents.
+During expert interview and field study evaluations, many historians said that they found such features helpful for archival research. 
+They reported skimming over query mentions in the Document Feed to gain a sense of a query's use across a corpus, and then reading highlighted mentions in the Document Viewer for more context and detail. 
+Several specifically mentioned that these components helped with \burdensome~and analysis.
+
+This query-oriented approach suggests new directions for interactive text analytics in other query-oriented settings.
+For instance, some marketing applications identify salient words and phrases in online forums \cite[Section 4.1]{marketingkdd};
+\ours's query-focused summaries and linked views might help marketing analysts using such systems understand what people say about products online.
+Features based on \ours~might also be applied in existing text analytics systems.
+For instance, people might formulate a query using overview-oriented features such as word clusters, 
+and then investigate this query word using a \ours-style Document Feed and Document Viewer.
+
+\subsection{\ours~tests an idea: {``Text and its affordances should be taken seriously''}\label{s:text_seriously}}
+Researchers have proposed many approaches to text visualization, which map high-dimensional text to two-dimensional graphical representations like time series plots (e.g., ThemeRiver \cite{ThemeRiver}) or bubble diagrams (e.g., EventRiver \cite{eventriver}).
+By contrast, \ours's Document Feed and Document Viewer do not map text data to a graphical representation. Instead, \ours~uses text summarization methods from NLP to extract and present spans of text from a corpus for people to read, using automatic in-text highlighting to facilitate skimming.
+In this sense, \ours~follows the advice of \citet{moretextplease}, who suggest that {``text and its affordances should be taken seriously''} in text analytics by making text itself ``a central piece of the visualization.''
+Viewed through the lens of this recommendation, \ours~reflects one strategy for a text analytics system fundamentally organized around displaying spans from a corpus.
+Other work from \citet{storifier} also explores this ``reading-centered approach.''
+Some authors of prior text analytics systems have later noted the importance of showing underlying documents during interactive analysis. 
+Authors of the Jigsaw system found that ``interactive visualization cannot replace the reading of reports'' \cite{Gorg2013JigsawReflections}.
+Similarly, creators of both Overview \cite[Sec.\ 5]{stray} and ThemeRiver \cite[Sec.\ 7]{ThemeRiver} also describe finding that people need to read underlying text.
+
+\subsection{User feedback on summarization has implications for natural language processing}\label{s:discussion_NLP}
+
+\ours~applies particular ideas from query-focused text summarization for interactive text analysis.
+However, building and evaluating a user-facing system forced us to reexamine several core assumptions from the text summarization literature.
+In particular, early versions of \ours~applied standard optimization-based summarization methods \cite{McDonald} to select ``important'' information from a corpus.
+This approach was reminiscent of prior temporally-oriented language engineering systems such as HistDiv \cite{histdiv}, TimeMine \cite{allen}, and TimeExplorer \cite{TimeExplorer}, which each attempt to automatically identify most-relevant information based on a query. 
+
+However, during needfinding and prototyping, we found that some historians and archivists strongly disliked this approach.
+Experts reported that they needed to understand why the computer was showing particular summaries, before they could actually draw conclusions from the output (see prototypes in the Appendix).
+Based on this feedback, in later versions of \ours, we stopped trying to extract ``important'' mentions of a query term in search results. 
+Instead, we decided to shorten and present every single sentence mentioning a user's query in the Document Feed, and allow people to easily examine such shortenings in context in the Document Viewer. 
+During our expert interview and field study and evaluations, we found that this approach was more successful. 
+We hypothesize that experts liked this format because they could understand {why} \ours~showed query shortenings, and thus use \ours~output in their research.
+
+Our experiences might have implications for NLP, where research in summarization typically focuses on generating summaries which best match ``gold'' references \cite{das2007survey,nenkova2012survey} without worrying about explaining how summaries are formed.
+In particular, much recent work on abstractive summarization in NLP \cite{rush-etal-2015-neural,Hermann2015TeachingMT} seeks to generate summary passages that do not occur in the input text.
+Because such abstractive output can not be checked against underlying sources, and because such methods also currently suffer from frequent factual errors \cite{kryscinski-etal-2019-neural}, much more research may be required before abstractive approaches might be applied towards social research.
+
+\subsection{Comprehensive and unbiased search costs time; transparency might help}\label{s:discussion_relevance}
+
+During needfinding interviews, historians and archivists often emphasized the importance of directly and comprehensively examining all evidence relevant to a given research question, without allowing black-box algorithms to influence their conclusions.
+We thus designed \ours~to minimize potential bias from algorithmic ranking.
+Yet feedback on these aspects of \ours~was mixed (Section \ref{s:expert_interview_comprehensivenesss} and \ref{s:relevance_model_feedback}).
+Some appreciated how \ours~used filters instead of ranking to narrow down search results.
+But others reported that truly forgoing algorithmic curation required the researcher to spend too much time reading irrelevant documents.
+For instance, some admitted that they often no have choice but to trust computer models of relevance to find evidence in archives because keyword search often turns up far more documents than they can possibly review.
+While historians do sometimes work with smaller corpora (Section \ref{s:feed_and_viewer}), this issue would be particularly problematic in larger archives, where some queries will be mentioned many times. 
+
+Why did some express deep commitment to full manual review of evidence during needfinding interviews, while others admit that they had to trust search engines to select evidence during system evaluation? 
+There are at least two possibilities. 
+One possibility is that historians and archivists might express commitment to comprehensive review when describing their ideal practices, but remember the limitations of this ideal when faced with a real task during system evaluation.
+Some approaches to needfinding in HCI emphasize the limits of user interviews \cite{ethographic} because ``what people say and what they do can vary significantly.''
+Another possibility is that there is variation in historians' commitment to comprehensiveness.
+Some but not all historians may feel required to comprehensively review all evidence during research, possibly based on intellectual background or subfield.
+(Other authors find similar variation among doctors \cite[Sec.\ 4.3.5]{doccurate}.)
+Better understanding this apparent contradiction  between experts' stated commitments to comprehensive review and the realities of inevitable tradeoffs between recall and time \cite[Fig.\ 6]{pirolli2005sensemaking}  will require further research.
+
+Nevertheless, future researchers might resolve the contradiction with improved user interfaces. 
+Specifically, systems might transparently show which documents are selected or hidden by an algorithm, and allow people to easily override and investigate any document ranking decisions from a machine.
+Such features would be particularly important for larger corpora, where historians would not be able to review all query mentions in context.
+Research on tools for visually and interactively refining search results \cite{TiisVizIR} might offer a useful starting point.
+Features which help groups of historians to collaborate during search could also enable teams of researchers to comprehensively review evidence from larger corpora.

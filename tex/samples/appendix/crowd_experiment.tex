@@ -1,0 +1,46 @@
+\subsection*{Quantitative comparison study: additional details}
+
+\subsubsection*{Additional details regarding creation of reading comprehension questions}
+We used a semi-automated procedure to create reading comprehension questions for our quantitative crowd study.
+Specifically, we first collected all editorials from The New York Times Annotated Corpus \cite{SandhausNYT} which included the words ``Zimbabwe'' and ``Mugabe''.
+We then used the TfidfVectorizer class from scikit-learn \cite{Pedregosa:2011:SML:1953048.2078195} with default settings to construct tf-idf vectors for all 1,689 sentences in the editorials. 
+We also similarly constructed tf-idf vectors for all 597 sentences from the Wikipedia page on Robert Mugabe \cite{wikimugabe}. 
+We then computed the cosine similarity of each sentence pair in the Cartesian product of Wikipedia and \textit{New York Times} sentences. We manually reviewed the 200 sentence pairs with the highest cosine similarities, and manually labeled 37 total sentences from \textit{New York Times} editorials which reported a fact described in some sentence from Wikipedia.
+This process identified 37 facts about Mugabe from Wikipedia reported in editorials in \textit{The New York Times}. 
+We selected 8 of these facts to create reading comprehension questions for our task.
+
+% to make the file use mugabe tf-idf.ipynb
+% replication cat mugabe.wiki.jsonl| grep -v wikipedia | wc -l => 1689
+% cat mugabe.wiki.jsonl| grep wikipedia | wc -l
+
+% Google sheet for this is Wikipedia linker. Countif on recall column gets the 37 facts
+
+\subsubsection*{Additional details regarding tuning of IR baseline}
+We implemented the IR baseline using Whoosh, an open-source Python search engine. Like many search engines, Whoosh shows small document snippets from ranked documents on the search engine results page (Figure \ref{f:appendix_ir_serp}). To encourage fair comparison between Whoosh and \ours, we tuned Whoosh so that document snippets contained roughly as much text as the shortened sentences in the \ours~Document Feed. 
+Specifically, Whoosh allows snippet customization by setting the \texttt{maxchars} and \texttt{surround} parameters in its \texttt{Highlighter} module.
+We set these parameters by performing a grid search over all possible values from 10 to 100 (for each parameter), in order to maximize the average number of characters per Whoosh document snippet, under the constraint that the average was less than or equal to 90 characters (the length of the longest-possible shortened sentence in the \ours~Document Feed).
+The final setting for the \texttt{surround} parameter was 27 characters and the final setting for the \texttt{maxchars} parameter was of 10 characters. Using these settings, we observe a mean snippet length of exactly 90 characters using the IR system on the crowd task.
+Beyond tuning these parameters, we use default settings for the Whoosh search engine.
+
+\subsubsection*{Additional details regarding the crowd study pretest}
+Before beginning the main task in our crowd study, participants in each condition used their interface to complete a three minute pretest using a small corpus of six \textit{New York Times} editorials mentioning ``Iraq''. 
+The pretest was very similar to the main task; each interface was hard-coded to use the query ``Falluja'' and 
+participants were instructed to ``find and remember everything the \textit{New York Times} wrote about Falluja'' using their tool.
+After participants typed this exact phase into a text box to confirm they understood the instructions, they conducted research using their assigned interface.
+After 3 minutes, participants were then presented with a screen with four facts about U.S.\ involvement in Falluja (included in supplemental materials),
+and asked to identify which facts were reported in the six articles.
+Because only one fact from the list was reported in the articles, 
+to get a perfect score of 4 out of 4 on the pretest, workers had to both correctly identify the reported fact, and refrain from guessing any of the other three facts. 
+The pretest was designed to be very easy for attentive workers.
+
+\subsubsection*{Additional details regarding data collection phases for the crowd task}
+Data collection for the crowd task proceeded in two phases: an initial pilot phase and a main data collection phase.
+After the small pilot, we added two training screens for \ours~participants (shown in supplemental materials) to help \ours~users gain practice using unfamiliar features. 
+We also fixed a bug in the pilot in which \ours~users were shown an extra two editorials. 
+We emphasize that these two editorials did not contain any facts about Mugabe which could be used to answer the reading comprehension questions, and also note that the 
+two extra editorials would have made the task harder for \ours~participants (because they would have had to read extra text during the task, which was not relevant to the reading comprehension questions).
+Finally, after the pilot, we adjusted the random assignment mechanism so that participants were assigned to conditions in an alternating fashion following an initial random draw (i.e.\ first \ours, then IR, then \ours...). In the pilot, participants were assigned to conditions at random when they loaded the first screen in the task.
+
+\subsubsection*{Additional details regarding task payment}
+Because we had trouble recruiting qualified masters workers for our lengthy and complex task we increased payment during data collection. The first 18 participants were paid \$2.50 to complete the pilot. After the pilot, we increased payment to \$3.00 and collected data from 75 more participants. Because data collection was still very slow (e.g.\ 10 workers over a 24 hour period) we further increased payment to \$4.00 for the task and collected data from 26 more workers. Finally, we increased payment to \$5.00 for the task. When only 2 workers signed up over a half-day period at the \$5.00 rate we ended data collection.
+

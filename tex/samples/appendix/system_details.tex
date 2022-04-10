@@ -1,0 +1,50 @@
+\subsection*{The \ours~system: additional details}
+
+
+\subsubsection*{Implementation details}
+\ours~is a web application written in Python 3, using the Flask and React libraries.\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/} and \url{https://reactjs.org/}} The text simplification methods in the paper use Stanford CoreNLP \cite{corenlppipeline} for tokenization, dependency parsing, and part-of-speech tagging.\footnote{Eisenstein \cite{eisenstein2019introduction} offers a detailed introduction to these NLP techniques.}  \ours's relationship span extraction method also employs logistic regression; we use the implementation from Scikit-learn \cite{Pedregosa:2011:SML:1953048.2078195}.
+In the future, rewriting our Python-based prototype~in a faster language like Java or C would reduce our system's latency, helping \ours~scale to larger corpora.
+It might also be possible to further improve performance by employing time and space efficient IR methods for efficiently indexing and retrieving the locations of query words in documents \cite{irbook}.
+
+\subsubsection*{Time Series View: additional details}
+\ours's {Time Series View} shows a single rug point (small vertical line) for each document mentioning the query.
+These markings both help explain aggregated count statistics encoded in the time series plot (more rug points mean an higher annual count), and help link the Time Series View with the Document Feed. 
+If a user hovers over a rug point, \ours~displays the headline of the corresponding news story using a tooltip; if the user clicks a rug point, \ours~updates so that the story is displayed in the Document Feed and in the Document Viewer.
+When a user hovers over some year in the Time Series View, \ours~displays a tooltip showing the total count of documents containing the query for that year.
+
+\subsubsection*{Default system behaviors}
+If a user has not yet entered a query, \ours's time series plot simply shows the overall counts of documents by year across the entire corpus, shown with a neutral black line.
+In this case, the Document Feed also shows all documents in the corpus. Moreover, when filter-by-date is not used, \ours~shows documents from the time span of the corpus.
+
+\subsubsection*{Choosing colors}
+We {chose colors for \ours} using Colorbrewer \cite{colorbrewer}, a common resource, which offers colorblind safe and print-friendly palettes.
+Hall and Hanna \cite{HallAndHanna} test how foreground and background color affects how people read, retain, and experience text on screen. Our study focuses on testing the utility of in-text highlighting and text simplification for expert social researchers; future work might test the effect of varying the foreground or background color.
+
+\subsubsection*{Handling token gaps during clause deletion}
+In some cases, there may be gaps between tokens in simplified mentions, where tokens have been removed from the middle of a sentence. 
+(These are shown with ellipses in the Document Feed).
+In these cases, in performing {automatic in-text highlighting to link the Document Feed and Document Viewer}, we highlight the span in the Document Viewer which begins with and ends with the first and last token of the corresponding simplified mention, shown in the Document Feed.
+
+\subsubsection*{Computing tf-idf scores of iterative clause deletion}
+To compute tf-idf scores during iterative clause deletion, we assign each word in each possible output candidate shortening a word-level tf-idf score, and average the word-level tf-idf scores of all words in each possible candidate shortening to compute an overall, sentence-level tf-idf score. 
+We assign each word a tf score equal to the total occurrences of the word among all documents that contain $Q$, and an idf score equal to 1 divided by the count of documents containing the word across the corpus.
+We then multiply each word's tf score by its idf score to get a word-level td-idf score.
+We then select the candidate shortening with the highest overall tf-idf score for display in the Document Feed.
+
+\subsubsection*{Choosing among possible sentence shortening methods}
+In the System section, we describe three different sentence shortening techniques, which are applied in the \ours~interface. 
+Below, we describe how \ours~chooses to apply the three different methods.
+
+After a user enters a query $Q$, for each document mentioning $Q$, \ours's Document Feed displays the first sentence within the document mentioning $Q$ that can be shortened via query-focused clause deletion.
+If no such sentence exists, \ours~resorts to shortening the first sentence mentioning $Q$ via {character windowing}. 
+(Character windowing is only used as a last resort because it does not attempt to create well-formed output containing salient words from the input.)
+
+In cases when a user has entered both a query and subquery, for each document mentioning the query or subquery, \ours~will attempt to display the first sentence in the document that can be shorted via relationship span extraction.
+This is because we assume the user is interested in the relationship between the query and subquery.
+If there is no sentence that can be shortened via relationship span extraction, \ours~will display the first sentence that can be shortened via query-focused clause deletion.
+If no sentence can be shortened via clause deletion, it will resort to shortening the first sentence mentioning the query or subquery via character windowing.
+
+
+\ours~also allows the user to click ``expand'' to see all sentences mentioning the query within the document, as described in the System section. 
+In this case, \ours~will first attempt to shorten each sentence mentioning $Q$ via query-focused clause deletion, before resorting to shortening the sentence with character windowing. 
+If the user has also set a subquery (in addition to $Q$), \ours~will first try to shorten each sentence mentioning the query and subquery using relationship span extraction (and then attempt clause deletion, and character windowing).

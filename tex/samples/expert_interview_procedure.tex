@@ -1,0 +1,39 @@
+% !TEX root = ../main.tex
+
+After analyzing user needs (Section \ref{s:needs}) and designing the \ours~system based on such needs (Section \ref{s:system}), we conducted an interview study over Zoom video chat to test \ours~with historians and archivists, who used the system to investigate questions from news archives.
+
+\subsection{Recruitment, participants and corpora}
+
+We recruited five participants (P1-P5) from two universities in the U.S., by emailing students, faculty, and staff listed on history and library department web pages. 
+All participants had advanced degrees (master's or PhD) in history or library science, much like the expected users of our system. 
+We provide more details on the backgrounds of participants in the Appendix. Interviewees from our needfinding study (Section \ref{s:needs}) did not participate in our expert interview study, to avoid what Sedlmair et al.\ describe as a potential form of bias \cite{Sedlmair}.
+Each participant in the interview study had an established research or curatorial interest in some topic related to late 20th century or early 21st century history, which we express as a single topic word (see Appendix). 
+We identified this designated topic word based on each participant's publication record and professional web presence. 
+Before each interview, we then loaded \ours~with a corpus of \textit{New York Times} (NYT) editorials\footnote{Social researchers sometimes study editorials to better understand media sources \cite{gay_rights,Lule}.} published between 1987-2007 \cite{SandhausNYT} mentioning the designated topic word. 
+
+
+\subsection{Data collection}\label{s:datacollection}
+To administer the study, one researcher from our group conducted five, one-on-one, sixty-minute interviews over Zoom video chat. 
+(See supplemental materials for a detailed script.)
+During each interview, the researcher asked each participant to brainstorm and then articulate a high-level research question, based on the participant's prior work (10 minutes).
+They then introduced the participant to \ours~via a tutorial (7 minutes), and asked them to investigate their research question using \ours~(30 minutes). 
+They concluded with a semi-structured interview (13 minutes).
+Throughout, the researcher observed and recorded participant reactions and invited participants to think-aloud \cite{thinkaloud} as they used the system.
+If a participant offered feedback on some portion of the interface during their investigation (e.g., offered detailed feedback on the Time Series View), the researcher did not ask about this topic again during the semi-structured interview.
+
+\subsection{Thematic coding}\label{s:data_analysis}
+The researcher who conducted the interviews analyzed automatic Zoom transcriptions for each of the video recordings, and corrected transcription errors. The researcher then extracted 183 quotes from across five interview transcripts.
+Each quote consisted of a few sentences on a focused topic, along with the preceding question or comment to provide context (e.g., a quote might discuss the Document Feed). 
+The researcher attempted to extract as many quotes as possible, while excluding irrelevant quotes (e.g., tutorial instructions).
+
+The researcher then developed a codebook of six high-level codes (described in Section \ref{s:qualresults}), by grouping and re-grouping the 183 quotes to identify common themes, much like the codebook-based approach described in Miles, Huberman and Salda\~na \cite[Chp. 4]{miles_qualitative_2014}.\footnote{Miles, Huberman and Salda\~na \cite[Chp. 4]{miles_qualitative_2014} describe assigning codes in two phases; we assign codes in a single phase.}
+After each assigning each quote to exactly one of the six codes, the researcher shared the codebook with an undergraduate coder with training and experience in qualitative coding (who was not involved with the development of \ours).
+The second coder independently assigned codes to the same quotes, using the codebook. 
+The second coder was also invited to add new codes to the codebook if needed, but reported that no new codes were necessary. 
+(Thus we did not modify the codebook.)
+We include a copy of the codebook in supplemental materials.
+
+Following independent coding of each of the 183 quotes, the two coders met for 1 hour over Zoom video chat to discuss 41 disagreements, and attempted to reach consensus via discussion. In 21 cases, the two coders were able to reach agreement regarding the appropriate code. In 20 cases, the coders determined that disagreement reflected genuine ambiguity in qualitative data, and agreed to disagree.
+
+McDonald et al.\ \cite[Section 2.2]{McDonaldCoding} use the term \emph{reliability} to describe the extent to which coders reach the same result from independent work, and use the term \emph{agreement} to describe the extent to which coders reach consensus after discussion.
+Adopting this terminology, we measure the reliability of the two coders by computing a Cohen's $\kappa=0.724$ (using the R \texttt{psych} 2.0 package \cite{psych}), and we measure the agreement of the two coders by computing a $\kappa=0.855$.

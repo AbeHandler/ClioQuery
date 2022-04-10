@@ -1,0 +1,17 @@
+
+This study describes the design and evaluation of the \ours~text analytics system. 
+Where prior tools focus on the analysis of textual units like topics \cite{tiara}, events \cite{eventriver}, or hierarchies \cite{overview} (Section \ref{s:related_comparison}), \ours~is uniquely organized around investigation of query words in context, which form the system's central ``unit of analysis'' \cite{chuangheer}.
+
+\ours's unusual emphasis on the analysis of query words in context emerged from our study into the needs and practices of historians and archivists, who find and analyze occurrences of queries in their research.
+Working with and studying historians revealed that analyzing change across time, undertaking comprehensive review of evidence, evaluating contextual information, and conducting neutral observation were each central to the practice of historical research.
+Based on these insights, we designed the \ours~system, which applied query-focused text summarization methods from NLP to create skimmable summaries of a query term across an archive.
+\ours~then used more traditional analytics features like linked views and automatic in-text highlighting to show summary text within the context of underlying news stories, in order to build expert trust in automatic summaries.
+
+We tested \ours~in two separate user studies with historians, where we found that \ours's approach to organizing and presenting query mentions could help experts answer real questions from news archives.
+Many historians reported that \ours's~Document Feed facilitated rapid analysis of query mentions, and that \ours's linked Document Viewer offered complementary context and detail.
+In a separate quantitative comparison study, we found that \ours~helped crowd participants answer significantly more questions than a \Baselongname~tool.
+
+Together, our work on \ours~suggests possible new directions for interactive text analysis.
+In particular, \ours's~combination of text summarization and linked in-text highlighting could be applied in other query-oriented settings, where people also need to investigate query words in context.
+For instance, some marketing applications suggest notable keywords from comments in online forums \cite[Section 4.1]{marketingkdd}.
+\ours~methods might be applied to help marketers gather and analyze keyword mentions, or to help others investigate queries in other domains.
